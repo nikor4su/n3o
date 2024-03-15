@@ -1,0 +1,22 @@
+from flask import Flask, render_template, request
+
+app = Flask(Squad Chat)
+
+# Lista de mensagens
+messages = []
+
+@app.route("/")
+def index():
+    return render_template("index.html", messages=messages)
+
+@app.route("/send", methods=["POST"])
+def send():
+    # Obtém a mensagem enviada pelo usuário
+    message = request.form["message"]
+    # Adiciona a mensagem à lista de mensagens
+    messages.append(("Você:", message))
+    # Retorna para a página inicial
+    return index()
+
+if __name__ == "__main__":
+    app.run(debug=True)
